@@ -1,0 +1,17 @@
+name: siesta
+author: Typeform
+description: Github Action checking if a Google Calendar it is busy or not, so you can schedule a Siesta.
+inputs:
+  google-credentials:
+    description: contents of credentials.json
+    required: true
+  google-token:
+    description: contents of token.json
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+branding:
+  icon: 'watch'
+  color: 'green'
+
