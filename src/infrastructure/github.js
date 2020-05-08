@@ -1,7 +1,12 @@
 const core = require('@actions/core')
 
-const token = JSON.parse(core.getInput('google-token') || process.env.GOOGLE_TOKEN)
-const credentials = JSON.parse(core.getInput('google-credentials') || process.env.GOOGLE_CREDENTIALS)
+const getToken = () => {
+  return JSON.parse(core.getInput('google-token') || process.env.GOOGLE_TOKEN)
+}
+
+const getCredentials = () => {
+  return JSON.parse(core.getInput('google-credentials') || process.env.GOOGLE_CREDENTIALS)
+}
 
 /**
  * Throws a github warning with message if the whatToCheck is false
@@ -12,8 +17,17 @@ const setWarning = (whatToCheck, message) => {
   if (whatToCheck) return core.warning(message)
 }
 
+/**
+ * Sets the Github Action to fail
+ * @param {Object} error
+ */
+const setError = (error) => {
+  core.setFailed(error.message)
+}
+
 module.exports = {
+  setError,
   setWarning,
-  token,
-  credentials,
+  getToken,
+  getCredentials,
 }
