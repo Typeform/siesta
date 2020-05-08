@@ -38,4 +38,5 @@ yarn distribute
 ## Usage
 Check ```action.yml``` for the documentation of the inputs needed.
 
-
+## Contributing
+All code should pass tests, as well as be well documented. [Please also see the Commit Message Guidelines](CONTRIBUTING.MD) for how commit messages should be structured.
