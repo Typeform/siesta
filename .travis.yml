@@ -1,0 +1,8 @@
+dist: trusty
+language: node_js
+node_js:
+  - "12"
+
+script:
+  - yarn lint
+  - yarn test

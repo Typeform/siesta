@@ -1,6 +1,6 @@
 # Siesta
 A Github Action that integrates Google Calendar, telling you if your schedule is busy or not, so you can schedule a Siesta.  
- 
+![alt text][logo] 
 ## Developing
 
 ### Prerequisites
@@ -40,3 +40,6 @@ Check ```action.yml``` for the documentation of the inputs needed.
 
 ## Contributing
 All code should pass tests, as well as be well documented. [Please also see the Commit Message Guidelines](CONTRIBUTING.MD) for how commit messages should be structured.
+
+
+[logo]: logo.png "Enjoy Siesta"
