@@ -1,0 +1,18 @@
+on: [push]
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: Siesta Test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Siesta
+        uses: ./
+        id: siesta
+        with:
+          google-credentials: ${{ secrets.credentials }}
+          google-token: ${{ secrets.token }}
+      # Use the output from the `hello` step
+      - name: Get the output time
+        run: echo "The time was ${{ steps.hello.outputs.time }}"
