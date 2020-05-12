@@ -8,6 +8,10 @@ const getCredentials = () => {
   return JSON.parse(core.getInput('google-credentials') || process.env.GOOGLE_CREDENTIALS)
 }
 
+const getCalendarId = () => {
+  return (core.getInput('google-calendar-id') || process.env.GOOGLE_CALENDAR_ID || 'primary')
+}
+
 /**
  * Throws a github warning with message if the whatToCheck is false
  * @param {boolean} whatToCheck
@@ -30,4 +34,5 @@ module.exports = {
   setWarning,
   getToken,
   getCredentials,
+  getCalendarId,
 }
