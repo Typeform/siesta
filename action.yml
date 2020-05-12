@@ -8,6 +8,9 @@ inputs:
   google-token:
     description: contents of token.json
     required: true
+  google-calendar-id:
+    description: the calendar id to check. If not specified, will take the primary calendar of that account
+    required: false
 runs:
   using: 'node12'
   main: 'dist/index.js'

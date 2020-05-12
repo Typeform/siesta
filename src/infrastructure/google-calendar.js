@@ -18,21 +18,20 @@ const getOAuth2Client = (token, credentials) => {
 /**
  * Returns the events of a google calendar
  * @param {OAuth2Client} auth required to authenticate
+ * @param {string} calendarId Id of Google Calendar
  * @param {String} initialTime from when to start looking
  * @param {String} finalTime to when to stop looking
  */
-const getCalendarEvents = async (auth, initialTime, finalTime) => {
+const getCalendarEvents = async (auth, calendarId, initialTime, finalTime) => {
   const calendar = google.calendar({ version: 'v3', auth })
   const response = await calendar.freebusy.query({
     resource: {
-      items: [{ id: 'primary' }],
       timeMin: initialTime,
       timeMax: finalTime,
-
+      items: [{ id: calendarId }],
     },
   })
-
-  return response.data.calendars.primary.busy
+  return response.data.calendars[calendarId].busy
 }
 
 module.exports = {
