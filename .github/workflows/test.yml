@@ -15,7 +15,7 @@ jobs:
         id: siesta
         with:
           google-credentials: ${{ secrets.siesta_google_credentials }}
-          google-token: ${{ secrets.siesta_google_credentials }}
+          google-token: ${{ secrets.siesta_google_token }}
           google-calendar-id: ${{ secrets.siesta_google_calendar_id }}
           custom-calendar-busy-message: 'The Calendar is Busy'
           custom-calendar-not-busy-message: 'The Calendar is Not Busy'
