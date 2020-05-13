@@ -20,7 +20,9 @@ const getEventsOfACalendar = async (initialTime, finalTime, token, credentials, 
  * @param {string} calendarId
  */
 const getCalendarEvents = (googleCalendarResponse, calendarId) => {
-  return googleCalendarResponse.data.calendars[calendarId].busy
+  try { return googleCalendarResponse.data.calendars[calendarId].busy } catch (e) {
+    throw new Error(`Couldn't get the calendar events: ${e}`)
+  }
 }
 
 module.exports = {

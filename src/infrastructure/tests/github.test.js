@@ -103,6 +103,41 @@ describe('getCustomCalendarNotBusyMessage', () => {
   })
 })
 
+describe('throwErrorFailIfBusy', () => {
+  beforeEach(() => {
+    jest.resetModules()
+  })
+  it('should throw github error if FAIL_IS_BUSY true', () => {
+    jest.mock('../constants', () => ({ DEFAULT_FAIL_IF_BUSY: 'true' }))
+
+    // eslint-disable-next-line global-require
+    const { throwErrorFailIfBusy } = require('../github')
+    // eslint-disable-next-line global-require
+    const core = require('@actions/core')
+    throwErrorFailIfBusy('message')
+    expect(core.setFailed).toHaveBeenCalledWith('message')
+  })
+  it('should not throw github error if FAIL_IS_BUSY false', () => {
+    jest.mock('../constants', () => ({ DEFAULT_FAIL_IF_BUSY: 'false' }))
+    // eslint-disable-next-line global-require
+    const { throwErrorFailIfBusy } = require('../github')
+    // eslint-disable-next-line global-require
+    const core = require('@actions/core')
+    throwErrorFailIfBusy('message')
+    expect(core.setFailed).not.toBeCalled()
+  })
+  it('should throw error if FAIL_IS_BUSY is incorrect type', () => {
+    jest.mock('../constants', () => ({ DEFAULT_FAIL_IF_BUSY: false }))
+    // eslint-disable-next-line global-require
+    const { throwErrorFailIfBusy } = require('../github')
+    try {
+      throwErrorFailIfBusy('message')
+    } catch (e) {
+      expect(e.message).toEqual('Incorrect FAIL_IF_BUSY:TypeError: getFailIfBusy(...).toLowerCase is not a function')
+    }
+  })
+})
+
 describe('throwGithubError', () => {
   beforeEach(() => {
     jest.resetModules()

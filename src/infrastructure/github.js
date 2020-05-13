@@ -1,6 +1,6 @@
 const core = require('@actions/core')
 
-const { DEFAULT_GOOGLE_CREDENTIALS, DEFAULT_GOOGLE_TOKEN, DEFAULT_CALENDAR_ID, DEFAULT_CUSTOM_CALENDAR_BUSY_MESSAGE, DEFAULT_CUSTOM_CALENDAR_NOT_BUSY_MESSAGE } = require('./constants')
+const { DEFAULT_GOOGLE_CREDENTIALS, DEFAULT_GOOGLE_TOKEN, DEFAULT_CALENDAR_ID, DEFAULT_CUSTOM_CALENDAR_BUSY_MESSAGE, DEFAULT_CUSTOM_CALENDAR_NOT_BUSY_MESSAGE, DEFAULT_FAIL_IF_BUSY } = require('./constants')
 
 /**
  * Gets token and parses it
@@ -42,6 +42,25 @@ const getCustomCalendarNotBusyMessage = () => {
 }
 
 /**
+ * Gets failIfBusy
+ */
+const getFailIfBusy = () => {
+  return core.getInput('fail-if-busy') || DEFAULT_FAIL_IF_BUSY
+}
+
+/**
+ * Throws an error if getFailIfBusyIsTrue
+ * @param {string} message
+ */
+const throwErrorFailIfBusy = (message) => {
+  try {
+    if (getFailIfBusy().toLowerCase() === 'true') throwGithubError(message)
+  } catch (e) {
+    throw new Error(`Incorrect FAIL_IF_BUSY:${e}`)
+  }
+}
+
+/**
  * Sets the Github Action to fail
  * @param {string} message
  */
@@ -65,4 +84,5 @@ module.exports = {
   getCustomCalendarBusyMessage,
   getCustomCalendarNotBusyMessage,
   setGithubOutput,
+  throwErrorFailIfBusy,
 }

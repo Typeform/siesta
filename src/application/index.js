@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 const { getEventsOfACalendar } = require('../infrastructure/google-calendar-manager')
-const { getToken, getCredentials, getCalendarId, getCustomCalendarBusyMessage, getCustomCalendarNotBusyMessage, setGithubOutput, throwGithubError } = require('../infrastructure/github')
+const { getToken, getCredentials, getCalendarId, getCustomCalendarBusyMessage, getCustomCalendarNotBusyMessage, setGithubOutput, throwGithubError, throwErrorFailIfBusy } = require('../infrastructure/github')
 const { getTimeIntervalAsISOString } = require('../domain/time')
 const { areThereEvents } = require('../domain/calendar')
 
@@ -21,7 +21,7 @@ const main = async () => {
     )
     setGithubOutput(isCalendarBusyAtTheMomentToCheck)
     if (isCalendarBusyAtTheMomentToCheck) {
-      throwGithubError(getCustomCalendarBusyMessage())
+      throwErrorFailIfBusy(getCustomCalendarBusyMessage())
     } else console.log(getCustomCalendarNotBusyMessage())
   } catch (error) {
     throwGithubError(error.message)

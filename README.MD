@@ -10,6 +10,7 @@ A Github Action that integrates Google Calendar, telling you if your schedule is
 ```google-calendar-id```: Optional, Google Calendar ID as returned by the CalendarsList call. [More info](https://developers.google.com/calendar/v3/reference/calendarList/list)    
 ```custom-calendar-busy-message```: Optional, string that is displayed if the calendar is busy with events in a given time frame
 ```custom-calendar-not-busy-message```: Optional, string that is displayed if the calendar is not busy with events in a given time frame  
+```fail-if-busy```: Optional, boolean that controls if the build should fail if the calendar is busy. by default is true.
   
 ### Output Variables:  
 ```calendar-busy```: Boolean, true if the calendar is busy with events, false if the calendar is not busy with events.  
