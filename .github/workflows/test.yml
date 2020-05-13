@@ -1,0 +1,24 @@
+on:
+  push:
+  pull_request:
+    branches:
+      - master
+jobs:
+  test-siesta:
+    runs-on: ubuntu-latest
+    name: Siesta Test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Siesta
+        uses: ./
+        id: siesta
+        with:
+          google-credentials: ${{ secrets.siesta_google_credentials }}
+          google-token: ${{ secrets.siesta_google_token }}
+          google-calendar-id: ${{ secrets.siesta_google_calendar_id }}
+          custom-calendar-busy-message: 'The Calendar is Busy'
+          custom-calendar-not-busy-message: 'The Calendar is Not Busy'
+          fail-if-busy: true
+      - name: Get the output
+        run: echo "The calendar-busy output is ${{ steps.siesta.outputs.calendar-busy }}"
