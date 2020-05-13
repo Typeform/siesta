@@ -11,6 +11,16 @@ inputs:
   google-calendar-id:
     description: the calendar id to check. If not specified, will take the primary calendar of that account
     required: false
+  custom-calendar-busy-message:
+    description: in case the calendar is busy with events at the given timeframe, this message will be displayed in the github error
+    required: false
+  custom-calendar-not-busy-message:
+    description: in case the calendar is not busy with events at the given timeframe, this message will be displayed in the console log
+    required: false
+outputs:
+   calendar-busy:
+     description: a boolean, true if the calendar is busy with events, false if the calendar is not busy with events
+
 runs:
   using: 'node12'
   main: 'dist/index.js'
