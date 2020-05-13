@@ -16,7 +16,7 @@ jobs:
         with:
           google-credentials: ${{ secrets.siesta_google_credentials }}
           google-token: ${{ secrets.siesta_google_credentials }}
-          google-calendar-id: {{ secrets.siesta_google_calendar_id }}
+          google-calendar-id: ${{ secrets.siesta_google_calendar_id }}
           custom-calendar-busy-message: 'The Calendar is Busy'
           custom-calendar-not-busy-message: 'The Calendar is Not Busy'
       - name: Get the output
