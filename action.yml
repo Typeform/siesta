@@ -1,4 +1,4 @@
-name: siesta
+name: tf-siesta
 author: Typeform
 description: Github Action checking if a Google Calendar it is busy or not, so you can schedule a Siesta.
 inputs:
