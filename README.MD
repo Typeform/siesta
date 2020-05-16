@@ -49,7 +49,7 @@ yarn start
 yarn test
 ```
 ### How to distribute
-Github actions requires all the package dependencies in the repo to run the JavaScript code.  
+Github actions require all the package dependencies in the repo to run the JavaScript code.  
 We prefer to distribute our code and modules into a single file: ```dist/index.js```. To do that, run: 
 ```bash
 yarn distribute
