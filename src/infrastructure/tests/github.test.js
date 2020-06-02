@@ -107,12 +107,12 @@ describe('getHardFailure', () => {
   beforeEach(() => {
     jest.resetModules()
   })
-  it('should return a the value of fail on 3rd party', () => {
+  it('should return a the value of HARD_FAILURE env', () => {
     jest.mock('../constants', () => ({ DEFAULT_HARD_FAILURE: 'TRUE' }))
 
     // eslint-disable-next-line global-require
     const { getHardFailure } = require('../github')
-    expect(getHardFailure()).toEqual('TRUE')
+    expect(getHardFailure()).toEqual(true)
   })
 })
 
@@ -186,16 +186,6 @@ describe('throwErrorFailOnHardFailure', () => {
     const core = require('@actions/core')
     throwErrorFailOnHardFailure({ message: 'message' })
     expect(core.warning).toBeCalledWith('message')
-  })
-  it('should throw error if HARD_FAILURE is incorrect type', () => {
-    jest.mock('../constants', () => ({ DEFAULT_HARD_FAILURE: false }))
-    // eslint-disable-next-line global-require
-    const { throwErrorFailOnHardFailure } = require('../github')
-    try {
-      throwErrorFailOnHardFailure({ message: 'message' })
-    } catch (e) {
-      expect(e.message).toEqual('Incorrect HARD_FAILURE_ERROR:TypeError: shouldFail.toLowerCase is not a function')
-    }
   })
 })
 

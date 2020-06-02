@@ -60,7 +60,9 @@ const getFailIfBusy = () => {
  * Gets hard-failure
  */
 const getHardFailure = () => {
-  return core.getInput('hard-failure') || DEFAULT_HARD_FAILURE
+  const shouldHardFailure = core.getInput('hard-failure') || DEFAULT_HARD_FAILURE
+  if (shouldHardFailure.toLowerCase() === 'true') return true
+  return false
 }
 
 /**
@@ -68,13 +70,8 @@ const getHardFailure = () => {
  * @param {Object} error
  */
 const throwErrorFailOnHardFailure = (error) => {
-  try {
-    const shouldFail = getHardFailure()
-    if (shouldFail.toLowerCase() === 'true') throwGithubError(error.message)
-    else throwGithubWarning(error.message)
-  } catch (e) {
-    throw new Error(`Incorrect HARD_FAILURE_ERROR:${e}`)
-  }
+  if (getHardFailure()) throwGithubError(error.message)
+  throwGithubWarning(error.message)
 }
 
 /**
