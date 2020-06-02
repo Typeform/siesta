@@ -10,16 +10,16 @@ jobs:
     name: check no deploy window
     steps:
       - name: is deploy calendar busy?
-        uses: Typeform/siesta@v1
+        uses: Typeform/siesta@v1.1
         id: siesta
         with:
           google-credentials: ${{ secrets.siesta_google_credentials }}
-          google-token: ${{ secrets.siesta_google_token }}
+          google-token: ''
           google-calendar-id: ${{ secrets.siesta_google_calendar_id }}
           custom-calendar-busy-message: 'There is an event in the Calendar. Deploying not recommended.'
           custom-calendar-not-busy-message: 'No event in the Calendar. Feel free to deploy.'
           fail-if-busy: false
-          hard-failure: true
+          hard-failure: false
       - name: set label action based on result
         uses: haya14busa/action-cond@v1.0.0
         id: condval
