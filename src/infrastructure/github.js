@@ -1,6 +1,14 @@
 const core = require('@actions/core')
 
-const { DEFAULT_GOOGLE_CREDENTIALS, DEFAULT_GOOGLE_TOKEN, DEFAULT_CALENDAR_ID, DEFAULT_CUSTOM_CALENDAR_BUSY_MESSAGE, DEFAULT_CUSTOM_CALENDAR_NOT_BUSY_MESSAGE, DEFAULT_FAIL_IF_BUSY } = require('./constants')
+const {
+  DEFAULT_GOOGLE_CREDENTIALS,
+  DEFAULT_GOOGLE_TOKEN,
+  DEFAULT_CALENDAR_ID,
+  DEFAULT_CUSTOM_CALENDAR_BUSY_MESSAGE,
+  DEFAULT_CUSTOM_CALENDAR_NOT_BUSY_MESSAGE,
+  DEFAULT_FAIL_IF_BUSY,
+  DEFAULT_HARD_FAILURE,
+} = require('./constants')
 
 /**
  * Gets token and parses it
@@ -49,6 +57,27 @@ const getFailIfBusy = () => {
 }
 
 /**
+ * Gets hard-failure
+ */
+const getHardFailure = () => {
+  return core.getInput('hard-failure') || DEFAULT_HARD_FAILURE
+}
+
+/**
+ * Throws an error if hard-failure is true
+ * @param {Object} error
+ */
+const throwErrorFailOnHardFailure = (error) => {
+  try {
+    const shouldFail = getHardFailure()
+    if (shouldFail.toLowerCase() === 'true') throwGithubError(error.message)
+    else throwGithubWarning(error.message)
+  } catch (e) {
+    throw new Error(`Incorrect HARD_FAILURE_ERROR:${e}`)
+  }
+}
+
+/**
  * Throws an error if getFailIfBusyIsTrue
  * @param {string} message
  */
@@ -69,6 +98,14 @@ const throwGithubError = (message) => {
 }
 
 /**
+ * Sets a Github warning in the console
+ * @param {string} message
+ */
+const throwGithubWarning = (message) => {
+  core.warning(message)
+}
+
+/**
  * Sets github output
  * @param {boolean} output
  */
@@ -85,4 +122,8 @@ module.exports = {
   getCustomCalendarNotBusyMessage,
   setGithubOutput,
   throwErrorFailIfBusy,
+  getHardFailure,
+  throwErrorFailOnHardFailure,
+  getFailIfBusy,
+  throwGithubWarning,
 }
