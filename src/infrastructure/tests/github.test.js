@@ -103,6 +103,32 @@ describe('getCustomCalendarNotBusyMessage', () => {
   })
 })
 
+describe('getHardFailure', () => {
+  beforeEach(() => {
+    jest.resetModules()
+  })
+  it('should return a the value of HARD_FAILURE env', () => {
+    jest.mock('../constants', () => ({ DEFAULT_HARD_FAILURE: 'TRUE' }))
+
+    // eslint-disable-next-line global-require
+    const { getHardFailure } = require('../github')
+    expect(getHardFailure()).toEqual(true)
+  })
+})
+
+describe('getFailIfBusy', () => {
+  beforeEach(() => {
+    jest.resetModules()
+  })
+  it('should return a the value of fail if busy', () => {
+    jest.mock('../constants', () => ({ DEFAULT_FAIL_IF_BUSY: 'TRUE' }))
+
+    // eslint-disable-next-line global-require
+    const { getFailIfBusy } = require('../github')
+    expect(getFailIfBusy()).toEqual('TRUE')
+  })
+})
+
 describe('throwErrorFailIfBusy', () => {
   beforeEach(() => {
     jest.resetModules()
@@ -138,6 +164,31 @@ describe('throwErrorFailIfBusy', () => {
   })
 })
 
+describe('throwErrorFailOnHardFailure', () => {
+  beforeEach(() => {
+    jest.resetModules()
+  })
+  it('should throw github error if HARD_FAILURE true', () => {
+    jest.mock('../constants', () => ({ DEFAULT_HARD_FAILURE: 'true' }))
+
+    // eslint-disable-next-line global-require
+    const { throwErrorFailOnHardFailure } = require('../github')
+    // eslint-disable-next-line global-require
+    const core = require('@actions/core')
+    throwErrorFailOnHardFailure({ message: 'message' })
+    expect(core.setFailed).toHaveBeenCalledWith('message')
+  })
+  it('should throw github warning if HARD_FAILURE false', () => {
+    jest.mock('../constants', () => ({ DEFAULT_HARD_FAILURE: 'false' }))
+    // eslint-disable-next-line global-require
+    const { throwErrorFailOnHardFailure } = require('../github')
+    // eslint-disable-next-line global-require
+    const core = require('@actions/core')
+    throwErrorFailOnHardFailure({ message: 'message' })
+    expect(core.warning).toBeCalledWith('message')
+  })
+})
+
 describe('throwGithubError', () => {
   beforeEach(() => {
     jest.resetModules()
@@ -149,6 +200,20 @@ describe('throwGithubError', () => {
     const core = require('@actions/core')
     throwGithubError('message')
     expect(core.setFailed).toHaveBeenCalledWith('message')
+  })
+})
+
+describe('throwGithubWarning', () => {
+  beforeEach(() => {
+    jest.resetModules()
+  })
+  it('should throw github warning', () => {
+    // eslint-disable-next-line global-require
+    const { throwGithubWarning } = require('../github')
+    // eslint-disable-next-line global-require
+    const core = require('@actions/core')
+    throwGithubWarning('message')
+    expect(core.warning).toHaveBeenCalledWith('message')
   })
 })
 

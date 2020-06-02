@@ -18,8 +18,12 @@ inputs:
     description: string, in case the calendar is not busy with events at the given timeframe, this message will be displayed in the console log
     required: false
   fail-if-busy:
-    description: boolean, controls if the build should fail if the calendar is busy. default is true
+    description: boolean, controls if the build should fail if the calendar is busy. Needs hard-failure in true. default is true
     required: false
+  hard-failure:
+    description: boolean, if true, fails the build on any error. If false, throws an warning instead.
+    required: false
+
 outputs:
    calendar-busy:
      description: a boolean, true if the calendar is busy with events, false if the calendar is not busy with events

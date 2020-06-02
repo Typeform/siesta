@@ -20,5 +20,6 @@ jobs:
           custom-calendar-busy-message: 'The Calendar is Busy'
           custom-calendar-not-busy-message: 'The Calendar is Not Busy'
           fail-if-busy: true
+          hard-failure: true
       - name: Get the output
         run: echo "The calendar-busy output is ${{ steps.siesta.outputs.calendar-busy }}"
