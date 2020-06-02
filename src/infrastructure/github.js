@@ -70,8 +70,11 @@ const getHardFailure = () => {
  * @param {Object} error
  */
 const throwErrorFailOnHardFailure = (error) => {
-  if (getHardFailure()) throwGithubError(error.message)
-  throwGithubWarning(error.message)
+  if (getHardFailure()) {
+    throwGithubError(error.message)
+  } else {
+    throwGithubWarning(error.message)
+  }
 }
 
 /**
