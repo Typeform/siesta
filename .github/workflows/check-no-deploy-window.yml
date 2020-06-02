@@ -10,7 +10,7 @@ jobs:
     name: check no deploy window
     steps:
       - name: is deploy calendar busy?
-        uses: Typeform/siesta@v1
+        uses: Typeform/siesta@v1.1
         id: siesta
         with:
           google-credentials: ${{ secrets.siesta_google_credentials }}
