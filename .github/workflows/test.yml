@@ -1,3 +1,4 @@
+name: Happy Path - Returns false
 on:
   push:
   pull_request:
@@ -21,5 +22,10 @@ jobs:
           custom-calendar-not-busy-message: 'The Calendar is Not Busy'
           fail-if-busy: true
           hard-failure: true
-      - name: Get the output
-        run: echo "The calendar-busy output is ${{ steps.siesta.outputs.calendar-busy }}"
+      - name: Assert Result
+        uses: therussiankid92/gat@v1
+        id: gat
+        with:
+          assertion: should.equal
+          expected: false
+          actual: ${{steps.siesta.outputs.calendar-busy}}
