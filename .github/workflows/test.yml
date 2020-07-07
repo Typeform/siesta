@@ -5,13 +5,13 @@ on:
     branches:
       - master
 jobs:
-  test-siesta:
+  happy-path:
     runs-on: ubuntu-latest
-    name: Siesta Test
+    name: Returns false
     steps:
-      - name: Checkout
+      - name: Given current branch is initialized
         uses: actions/checkout@v2
-      - name: Siesta
+      - name: When a calendar with no events is checked
         uses: ./
         id: siesta
         with:
@@ -22,7 +22,7 @@ jobs:
           custom-calendar-not-busy-message: 'The Calendar is Not Busy'
           fail-if-busy: true
           hard-failure: true
-      - name: Assert Result
+      - name: Then the calendar is not busy
         uses: therussiankid92/gat@v1
         id: gat
         with:
