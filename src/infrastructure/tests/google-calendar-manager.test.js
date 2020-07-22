@@ -27,7 +27,7 @@ describe('getCalendarEvents', () => {
     try {
       getCalendarEvents(response, 'calendarId')
     } catch (e) {
-      expect(e.message).toEqual('Couldn\'t get the calendar events: TypeError: Cannot read property \'calendars\' of undefined')
+      expect(e.message).toEqual('Cannot read property \'calendars\' of undefined')
     }
   })
 })

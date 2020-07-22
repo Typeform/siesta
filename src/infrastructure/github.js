@@ -71,7 +71,7 @@ const getHardFailure = () => {
  */
 const throwErrorFailOnHardFailure = (error) => {
   if (getHardFailure()) {
-    throwGithubError(error.message)
+    throwGithubError(error)
   } else {
     throwGithubWarning(error.message)
   }
@@ -91,10 +91,16 @@ const throwErrorFailIfBusy = (message) => {
 
 /**
  * Sets the Github Action to fail
- * @param {string} message
+ * @param {Object} error
  */
-const throwGithubError = (message) => {
-  core.setFailed(message)
+const throwGithubError = (error) => {
+  if (error.stack) {
+    core.error(error.stack)
+    core.setFailed(error.message)
+  } else {
+    core.error('Looks like you are forcing an error using HARD_FAILURE variable')
+    core.setFailed(error)
+  }
 }
 
 /**
