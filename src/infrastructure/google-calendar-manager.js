@@ -10,8 +10,7 @@ const { getCalendarFreeBusyResponse, getOAuth2Client } = require('./google-calen
  */
 const getEventsOfACalendar = async (initialTime, finalTime, token, credentials, calendarId) => {
   const auth = getOAuth2Client(token, credentials)
-  const googleCalendarReponse = await getCalendarFreeBusyResponse(auth, calendarId, initialTime, finalTime)
-  return getCalendarEvents(googleCalendarReponse, calendarId)
+  return getCalendarEvents(await getCalendarFreeBusyResponse(auth, calendarId, initialTime, finalTime), calendarId)
 }
 
 /**
@@ -20,9 +19,7 @@ const getEventsOfACalendar = async (initialTime, finalTime, token, credentials, 
  * @param {string} calendarId
  */
 const getCalendarEvents = (googleCalendarResponse, calendarId) => {
-  try { return googleCalendarResponse.data.calendars[calendarId].busy } catch (e) {
-    throw new Error(`Couldn't get the calendar events: ${e}`)
-  }
+  return googleCalendarResponse.data.calendars[calendarId].busy
 }
 
 module.exports = {

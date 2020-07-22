@@ -175,8 +175,20 @@ describe('throwErrorFailOnHardFailure', () => {
     const { throwErrorFailOnHardFailure } = require('../github')
     // eslint-disable-next-line global-require
     const core = require('@actions/core')
-    throwErrorFailOnHardFailure({ message: 'message' })
+    throwErrorFailOnHardFailure({ stack: 'stack', message: 'message' })
     expect(core.setFailed).toHaveBeenCalledWith('message')
+    expect(core.error).toHaveBeenCalledWith('stack')
+  })
+  it('should throw github error if HARD_FAILURE true, and error.stack not present', () => {
+    jest.mock('../constants', () => ({ DEFAULT_HARD_FAILURE: 'true' }))
+
+    // eslint-disable-next-line global-require
+    const { throwErrorFailOnHardFailure } = require('../github')
+    // eslint-disable-next-line global-require
+    const core = require('@actions/core')
+    throwErrorFailOnHardFailure({ message: 'message' })
+    expect(core.setFailed).toHaveBeenCalledWith({ message: 'message' })
+    expect(core.error).toHaveBeenCalledWith('Looks like you are forcing an error using HARD_FAILURE variable')
   })
   it('should throw github warning if HARD_FAILURE false', () => {
     jest.mock('../constants', () => ({ DEFAULT_HARD_FAILURE: 'false' }))
