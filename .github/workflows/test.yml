@@ -22,6 +22,7 @@ jobs:
           custom-calendar-not-busy-message: 'The Calendar is Not Busy'
           fail-if-busy: true
           hard-failure: true
+          minutes-interval: 360
       - name: Then the calendar is not busy
         uses: therussiankid92/gat@v1
         id: gat

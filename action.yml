@@ -23,6 +23,9 @@ inputs:
   hard-failure:
     description: boolean, if true, fails the build on any error. If false, throws an warning instead.
     required: false
+  minutes-interval:
+    description: the interval of time, starting from the moment of execution, on which to check that the calendar is busy. Default 0.1 seconds.
+    required: false
 
 outputs:
    calendar-busy:

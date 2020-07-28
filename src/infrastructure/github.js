@@ -8,6 +8,7 @@ const {
   DEFAULT_CUSTOM_CALENDAR_NOT_BUSY_MESSAGE,
   DEFAULT_FAIL_IF_BUSY,
   DEFAULT_HARD_FAILURE,
+  DEFAULT_MINUTES_INTERVAL,
 } = require('./constants')
 
 /**
@@ -63,6 +64,15 @@ const getHardFailure = () => {
   const shouldHardFailure = core.getInput('hard-failure') || DEFAULT_HARD_FAILURE
   if (shouldHardFailure.toLowerCase() === 'true') return true
   return false
+}
+
+/**
+ * Gets minutes-interval. If the value is below 0 or a not a number, returns the default value
+ */
+const getMinutesInterval = () => {
+  const minutesInterval = core.getInput('minutes-interval') || process.env.MINUTES_INTERVAL
+  if (!isNaN(minutesInterval) && minutesInterval > 0) return parseFloat(minutesInterval)
+  return DEFAULT_MINUTES_INTERVAL
 }
 
 /**
@@ -132,4 +142,5 @@ module.exports = {
   throwErrorFailOnHardFailure,
   getFailIfBusy,
   throwGithubWarning,
+  getMinutesInterval,
 }

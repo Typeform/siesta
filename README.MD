@@ -12,6 +12,7 @@ A Github Action that integrates Google Calendar, telling you if your schedule is
 ```custom-calendar-not-busy-message```: Optional, string that is displayed if the calendar is not busy with events in a given time frame  
 ```fail-if-busy```: Optional, boolean that controls if the build should fail if the calendar is busy. by default is true.  
 ```hard-failure```: Optional, boolean, if true, fails the build on any error. If false, throws an warning instead. Default is false.  
+```minutes-interval```: Optional, int, the interval of time, starting from the moment of execution, on which to check that the calendar is busy. Default 0.1 seconds.
   
 ### Output Variables:  
 ```calendar-busy```: Boolean, true if the calendar is busy with events, false if the calendar is not busy with events.  
