@@ -129,6 +129,40 @@ describe('getFailIfBusy', () => {
   })
 })
 
+describe('getMinutesInterval', () => {
+  beforeEach(() => {
+    jest.resetModules()
+  })
+  it('should return the non-default value of getMinutesInterval', () => {
+    jest.mock('../constants', () => ({ DEFAULT_MINUTES_INTERVAL: 1 }))
+    process.env.MINUTES_INTERVAL = 2
+    // eslint-disable-next-line global-require
+    const { getMinutesInterval } = require('../github')
+    expect(getMinutesInterval()).toEqual(2)
+  })
+  it('should return the default value if inputed value is string', () => {
+    jest.mock('../constants', () => ({ DEFAULT_MINUTES_INTERVAL: 1 }))
+    process.env.MINUTES_INTERVAL = 'string'
+    // eslint-disable-next-line global-require
+    const { getMinutesInterval } = require('../github')
+    expect(getMinutesInterval()).toEqual(1)
+  })
+  it('should return the default value if inputed value is 0 ', () => {
+    jest.mock('../constants', () => ({ DEFAULT_MINUTES_INTERVAL: 1 }))
+    process.env.MINUTES_INTERVAL = 0
+    // eslint-disable-next-line global-require
+    const { getMinutesInterval } = require('../github')
+    expect(getMinutesInterval()).toEqual(1)
+  })
+  it('should return the default value if inputed value is <0 ', () => {
+    jest.mock('../constants', () => ({ DEFAULT_MINUTES_INTERVAL: 1 }))
+    process.env.MINUTES_INTERVAL = -1
+    // eslint-disable-next-line global-require
+    const { getMinutesInterval } = require('../github')
+    expect(getMinutesInterval()).toEqual(1)
+  })
+})
+
 describe('throwErrorFailIfBusy', () => {
   beforeEach(() => {
     jest.resetModules()
