@@ -12,7 +12,7 @@
     "lint-fix": "eslint ./src --fix"
   },
   "dependencies": {
-    "@actions/core": "^1.2.4",
+    "@actions/core": "^1.2.5",
     "@actions/github": "^2.2.0",
     "dotenv": "^8.2.0",
     "googleapis": "^50.0.0"
