@@ -1,4 +1,4 @@
-# Siesta
+# Siesta  
 A Github Action that integrates Google Calendar, telling you if your schedule is busy or not.  
  
 ![alt text][logo] 
