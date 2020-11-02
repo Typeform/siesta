@@ -4,5 +4,6 @@ node_js:
   - "12"
 
 script:
+  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then docker container run --rm ${DOCKER_REGISTRY}/typeform/gitleaks-config > gitleaks-runner.sh; bash gitleaks-runner.sh; fi'
   - yarn lint
   - yarn test
