@@ -1,0 +1,19 @@
+name: Send Deployment Event
+
+on:
+  release:
+    types: [released]
+
+jobs:
+  release:
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - uses: Typeform/.github/shared-actions/send-deployment-event@master
+        with:
+          user-id: "16235864"
+          event: "engineering_deploy"
+          repository-slug: ${{ github.repository }}
+          segment-deploy-key: ${{ secrets.DEPLOYMENT_SEGMENT_WRITE_KEY }}
+          is-internal-repository-deployment: true
+
