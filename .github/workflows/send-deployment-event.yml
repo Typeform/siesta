@@ -1,8 +1,8 @@
 name: Send Deployment Event
 
 on:
-  release:
-    types: [released]
+  push:
+    branches: master
 
 jobs:
   release:
